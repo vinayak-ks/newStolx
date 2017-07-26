@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1091150160811",
+    "firebase_url": "https://stolx2-93031.firebaseio.com",
+    "project_id": "stolx2-93031",
+    "storage_bucket": "stolx2-93031.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1091150160811:android:201d0c1517c1d31a",
+        "android_client_info": {
+          "package_name": "vicasintechies.in.stolx"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1091150160811-5pbvf6gc4jqgj55lqaeabkt2dg0gr7no.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "vicasintechies.in.stolx",
+            "certificate_hash": "a54041cf023f2bfea10429afdc59a2e7f56cba2b"
+          }
+        },
+        {
+          "client_id": "1091150160811-4ah33aqh6r05qjeakrqmvp11qcru762l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAi-Ayb27kqwWJFLBTMMItZYDB2zw6o4rQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1091150160811-4ah33aqh6r05qjeakrqmvp11qcru762l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
