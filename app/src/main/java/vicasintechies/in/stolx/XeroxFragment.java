@@ -4,6 +4,7 @@ package vicasintechies.in.stolx;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -29,7 +30,7 @@ import com.google.firebase.database.FirebaseDatabase;
  * Use the {@link BookFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class BookFragment extends Fragment {
+public class XeroxFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private RecyclerView mrecyclerView;
@@ -44,13 +45,13 @@ public class BookFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public BookFragment() {
+    public XeroxFragment() {
         // Required empty public constructor
     }
 
 
-    public static BookFragment newInstance() {
-        BookFragment fragment = new BookFragment();
+    public static XeroxFragment newInstance() {
+        XeroxFragment fragment = new XeroxFragment();
 
         return fragment;
     }
@@ -67,8 +68,8 @@ public class BookFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_book, container, false);
-        //rootView.setBackgroundColor(Color.parseColor("#42a5f5"));
+        View rootView = inflater.inflate(R.layout.fragment_xerox, container, false);
+        rootView.setBackgroundColor(Color.parseColor("#FFFFFF"));
        /* FirebaseDatabase.getInstance().setPersistenceEnabled(true);*/
         // Inflate the layout for this fragment
         return rootView;
@@ -78,9 +79,9 @@ public class BookFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mdatabase = FirebaseDatabase.getInstance().getReference().child("Book");
+        mdatabase = FirebaseDatabase.getInstance().getReference().child("Xerox");
 
-        mrecyclerView = (RecyclerView) view.findViewById(R.id.bookrecyclerView);
+        mrecyclerView = (RecyclerView) view.findViewById(R.id.xeroxrecyclerView);
 
         mrecyclerView.setHasFixedSize(true);
         mrecyclerView.addItemDecoration(new MaterialViewPagerHeaderDecorator());
@@ -147,7 +148,7 @@ public class BookFragment extends Fragment {
                         Bundle args = new Bundle();
                         //args.putString("fragment","CropsP");
                         args.putString("key",post_key);
-                        args.putString("dtable","Book");
+                        args.putString("dtable","Xerox");
                         Intent i = new Intent(getActivity(),SelectionActivity.class);
                         i.putExtras(args);
                         startActivity(i);

@@ -29,7 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
  * Use the {@link BookFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class BookFragment extends Fragment {
+public class OthersFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private RecyclerView mrecyclerView;
@@ -44,13 +44,13 @@ public class BookFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public BookFragment() {
+    public OthersFragment() {
         // Required empty public constructor
     }
 
 
-    public static BookFragment newInstance() {
-        BookFragment fragment = new BookFragment();
+    public static OthersFragment newInstance() {
+        OthersFragment fragment = new OthersFragment();
 
         return fragment;
     }
@@ -67,7 +67,7 @@ public class BookFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_book, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_others, container, false);
         //rootView.setBackgroundColor(Color.parseColor("#42a5f5"));
        /* FirebaseDatabase.getInstance().setPersistenceEnabled(true);*/
         // Inflate the layout for this fragment
@@ -78,9 +78,9 @@ public class BookFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mdatabase = FirebaseDatabase.getInstance().getReference().child("Book");
+        mdatabase = FirebaseDatabase.getInstance().getReference().child("Others");
 
-        mrecyclerView = (RecyclerView) view.findViewById(R.id.bookrecyclerView);
+        mrecyclerView = (RecyclerView) view.findViewById(R.id.otherstrecyclerView);
 
         mrecyclerView.setHasFixedSize(true);
         mrecyclerView.addItemDecoration(new MaterialViewPagerHeaderDecorator());
@@ -147,7 +147,7 @@ public class BookFragment extends Fragment {
                         Bundle args = new Bundle();
                         //args.putString("fragment","CropsP");
                         args.putString("key",post_key);
-                        args.putString("dtable","Book");
+                        args.putString("dtable","Others");
                         Intent i = new Intent(getActivity(),SelectionActivity.class);
                         i.putExtras(args);
                         startActivity(i);

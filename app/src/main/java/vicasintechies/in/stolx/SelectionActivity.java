@@ -3,6 +3,7 @@ package vicasintechies.in.stolx;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -38,6 +39,12 @@ public class SelectionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selection);
+
+
+        Toolbar tool = (Toolbar)findViewById(R.id.mtoolbar);
+        setSupportActionBar(tool);
+        if (getSupportActionBar()!=null)
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Bundle bdl = getIntent().getExtras();
         //CollapsingToolbarLayout collapsingToolbar =
                 /*(CollapsingToolbarLayout) findViewById(R.id.collapse_toolbar);*/
@@ -45,7 +52,8 @@ public class SelectionActivity extends AppCompatActivity {
         int secondary = getResources().getColor(R.color.colorPrimaryDark);
         Slidr.attach(this);
         String com = bdl.getString("key");
-        mAddReference= FirebaseDatabase.getInstance().getReference().child("Book1").child(com);
+        String dt = bdl.getString("dtable");
+        mAddReference= FirebaseDatabase.getInstance().getReference().child(dt).child(com);
         mnotification = FirebaseDatabase.getInstance().getReference().child("notifications");
         bookname = (TextView)findViewById(R.id.selname);
         price = (TextView)findViewById(R.id.selprice);
@@ -70,7 +78,7 @@ public class SelectionActivity extends AppCompatActivity {
                // txt.setText(post.getUid());
                 seller = post.getUid();
                 bookname.setText(post.getName());
-                price.setText(post.getPrice());
+                price.setText("₹ "+post.getPrice());
                 txt.setText(post.getPlace());
                 clg.setText(post.getCollege());
 

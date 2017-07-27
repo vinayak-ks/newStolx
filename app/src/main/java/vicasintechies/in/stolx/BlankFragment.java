@@ -194,13 +194,11 @@ public class BlankFragment extends Fragment {
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
         private final ArrayList<String> tabNames = new ArrayList<String>() {
             {
-                add("Books      ");
-                add("Offers      ");
-                add("Drafters      ");
-                add("Calc      ");
-                add("notifications      ");
-
-
+                add("Books");
+                add("Xerox");
+                add("Instruments");
+                add("Others");
+                add("notifications");
             }
         };
 
@@ -214,15 +212,13 @@ public class BlankFragment extends Fragment {
             if (position == 0) {
                 return BookFragment.newInstance();
             } else if (position == 1) {
-
-                return NotificationsFragment.newInstance();
-
+                return new XeroxFragment();
             } else if (position == 2) {
-                return BookFragment.newInstance();
+                return new InstrumentFragment();
             } else if (position == 3) {
-                return BookFragment.newInstance();
+                return new OthersFragment();
             } else {
-                return BookFragment.newInstance();
+                return new NotificationsFragment();
             }
 
         }

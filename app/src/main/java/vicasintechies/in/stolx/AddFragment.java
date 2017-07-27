@@ -105,11 +105,12 @@ public class AddFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootview = inflater.inflate(R.layout.fragment_add, container, false);
-        /*String strtext = this.getArguments().getString("edttext");*/
-      /*  strtext = getArguments().getString("table");
+
+        strtext = getArguments().getString("table");
         strimg = getArguments().getString("imgtable");
+
         Log.d("Table",strtext);
-        Log.d("Tableimg",strimg);*/
+        Log.d("Tableimg",strimg);
         rootview.setBackgroundColor(Color.parseColor("#FFFFFF"));
         // Inflate the layout for this fragment
         return rootview;
@@ -159,7 +160,7 @@ public class AddFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         storageReference = FirebaseStorage.getInstance().getReference();
-        databserefernce = FirebaseDatabase.getInstance().getReference().child("Book1");
+        databserefernce = FirebaseDatabase.getInstance().getReference().child(strtext);
 
         imageButton = (ImageButton)getView().findViewById(R.id.postimage);
         editName =(EditText)getView().findViewById(R.id.editname);
@@ -214,7 +215,7 @@ public class AddFragment extends Fragment {
 
         if(!TextUtils.isEmpty(name)&&!TextUtils.isEmpty(price)&&!TextUtils.isEmpty(place)&&!TextUtils.isEmpty(college)&&!TextUtils.isEmpty(branch)&&imageuri!=null){
 
-            StorageReference filepath = storageReference.child("Book11").child(imageuri.getLastPathSegment());
+            StorageReference filepath = storageReference.child(strimg).child(imageuri.getLastPathSegment());
 
             filepath.putFile(imageuri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override

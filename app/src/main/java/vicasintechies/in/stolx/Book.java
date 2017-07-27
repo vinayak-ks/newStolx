@@ -15,9 +15,7 @@ public class Book {
     private String Uid;
     private String SDate;
 
-    public String getUid() {
-        return Uid;
-    }
+
 
     public void setUid(String uid) {
         Uid = uid;
@@ -62,6 +60,10 @@ public class Book {
     public void setPlace(String place) {
         Place = place;
         Log.d("Setting","setted");
+    }
+
+    public String getUid() {
+        return Uid;
     }
 
     public String getPrice() {

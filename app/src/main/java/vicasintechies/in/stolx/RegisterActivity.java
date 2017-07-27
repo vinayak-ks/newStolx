@@ -26,6 +26,8 @@ public class RegisterActivity extends AppCompatActivity {
     private DatabaseReference mref;
     private CoordinatorLayout coordinatorLayout;
     private ProgressDialog prodialog;
+    private String clg,city;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,9 @@ public class RegisterActivity extends AppCompatActivity {
         rbranch=(EditText)findViewById(R.id.branch);
         rsub = (Button)findViewById(R.id.registerbutton);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
+
+
+
 
             prodialog = new ProgressDialog(this);
             rsub.setOnClickListener(new View.OnClickListener() {
@@ -85,4 +90,18 @@ public class RegisterActivity extends AppCompatActivity {
             });
 
     }
+
+    /*@Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        clg=  adapterView.getItemAtPosition(i).toString();
+
+        Toast.makeText(adapterView.getContext(), "Selected: " + clg, Toast.LENGTH_LONG).show();
+        Log.d("clgname",clg);
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }*/
 }

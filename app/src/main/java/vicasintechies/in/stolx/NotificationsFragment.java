@@ -2,8 +2,6 @@ package vicasintechies.in.stolx;
 
 
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,15 +11,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.github.florent37.materialviewpager.header.MaterialViewPagerHeaderDecorator;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +42,8 @@ public class NotificationsFragment extends Fragment {
     private RecyclerView mrecyclerView;
     private DatabaseReference mdatabase;
     private ProgressDialog prodialog;
-
+    List<Notification> li = new ArrayList<>();
+    MoviesAdapter moviesAdapter;
     public NotificationsFragment() {
         // Required empty public constructor
     }
@@ -76,14 +75,14 @@ public class NotificationsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         mdatabase = FirebaseDatabase.getInstance().getReference().child("notifications").child(uid);
-
+        moviesAdapter = new MoviesAdapter(li);
         mrecyclerView = (RecyclerView) view.findViewById(R.id.notifyrecycle);
         Log.d("IT's Reaching","Notification");
         mrecyclerView.setHasFixedSize(true);
         mrecyclerView.addItemDecoration(new MaterialViewPagerHeaderDecorator());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         mrecyclerView.setLayoutManager(linearLayoutManager);
-
+        mrecyclerView.setAdapter(moviesAdapter);
 
 
         //prodialog = new ProgressDialog(getContext());
@@ -104,54 +103,38 @@ public class NotificationsFragment extends Fragment {
     public void onStart() {
         super.onStart();
         Log.d("Stsart","gjjg");
-        List<String> li = new ArrayList<>();
-        li.add("vinay");
+        li = new ArrayList<>();
+        //li.add("vinay");
 
 
-        FirebaseRecyclerAdapter<Notification,NotificationViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Notification,NotificationViewHolder>(
-                Notification.class,
-                R.layout.row,
-                NotificationViewHolder.class,
-                mdatabase
-        ){
-
+        ValueEventListener roomsValueEventListener = new ValueEventListener() {
             @Override
-            protected void populateViewHolder(NotificationViewHolder viewHolder, Notification model, int position) {
-                Log.d("From not","jkjkj");
-                final String post_key = getRef(position).getKey().toString();
-                Log.d("From not","jkjkj");
-                viewHolder.setName("vinay");
-                viewHolder.setPrice("₹ "+model.getType());
-                /*viewHolder.setPlace(model.getPlace());
-                viewHolder.setCollege(model.getCollege());
-                viewHolder.setBranch(model.getBranch());*/
-                //viewHolder.setImage(getActivity().getApplicationContext(),model.getImage());
-                viewHolder.mView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Bundle args = new Bundle();
-                        //args.putString("fragment","CropsP");
-                        args.putString("key",post_key);
-                        Intent i = new Intent(getActivity(),SelectionActivity.class);
-                        i.putExtras(args);
-                        startActivity(i);
-                    }
-                });
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for ( DataSnapshot userDataSnapshot : dataSnapshot.getChildren() ) {
+                    Log.d("notify ",userDataSnapshot.toString());
+                         /*for ( DataSnapshot roomDataSnapshot : userDataSnapshot.getChildren() ) {*/
+                            String s = userDataSnapshot.getValue().getClass().toString();
+                            Log.d("nim",s);
+                            Notification room = userDataSnapshot.getValue(Notification.class);
 
+                            li.add(room);
+                            moviesAdapter.notifyDataSetChanged();
+
+
+                }
             }
 
             @Override
-            public void onDataChanged() {
-                /*if (prodialog != null && prodialog.isShowing()) {
-                    prodialog.dismiss();
-                }*/
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         };
         Log.d("Noticastins ","Niyre entererd");
-        mrecyclerView.setAdapter(firebaseRecyclerAdapter);
+        mdatabase.addListenerForSingleValueEvent(roomsValueEventListener);
+       // mrecyclerView.setAdapter(testRecyclerViewAdapter);
     }
 
-    public  static class NotificationViewHolder extends RecyclerView.ViewHolder{
+    /*public  static class NotificationViewHolder extends RecyclerView.ViewHolder{
         View mView;
         public NotificationViewHolder(View itemView) {
             super(itemView);
@@ -164,12 +147,12 @@ public class NotificationsFragment extends Fragment {
             namee.setText(name);
         }
 
-      /*  public void setPlace(String place) {
+      *//*  public void setPlace(String place) {
             TextView textView1 = (TextView) mView.findViewById(R.id.place);
             textView1.setText(place);
             Log.d("Coming1","name data entererd");
         }
-*/
+*//*
 
 
         public void setPrice(String price) {
@@ -179,7 +162,7 @@ public class NotificationsFragment extends Fragment {
 
 
 
-      /*  public void setCollege(String college) {
+      *//*  public void setCollege(String college) {
             TextView textView3 = (TextView) mView.findViewById(R.id.college);
             textView3.setText(college);
         }
@@ -189,74 +172,57 @@ public class NotificationsFragment extends Fragment {
         public void setBranch(String branch) {
             TextView textView4 = (TextView) mView.findViewById(R.id.branch);
             textView4.setText(branch);
-        }*/
+        }*//*
 
 
 
         public void setImage(Context ctx, String image) {
             ImageView imageView = (ImageView) mView.findViewById(R.id.simage);
-           /* Picasso.with(ctx).load(image).into(imageView);*/
+           *//* Picasso.with(ctx).load(image).into(imageView);*//*
             Glide.with(ctx).load(image).into(imageView);
             Log.d("Image","gfgf");
         }
-    }
+    }*/
 
-    class TestRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MyViewHolder> {
 
-        List<String> contents;
+        private List<Notification> moviesList;
 
-        static final int TYPE_HEADER = 0;
-        static final int TYPE_CELL = 1;
+        public class MyViewHolder extends RecyclerView.ViewHolder {
+            public TextView title, year, genre;
 
-        public TestRecyclerViewAdapter(List<String> contents) {
-            this.contents = contents;
+            public MyViewHolder(View view) {
+                super(view);
+                title = (TextView) view.findViewById(R.id.sname);
+                /*genre = (TextView) view.findViewById(R.id.genre);
+                year = (TextView) view.findViewById(R.id.year);*/
+            }
+        }
+
+
+        public MoviesAdapter(List<Notification> moviesList) {
+            this.moviesList = moviesList;
         }
 
         @Override
-        public int getItemViewType(int position) {
-            switch (position) {
-                case 0:
-                    return TYPE_HEADER;
-                default:
-                    return TYPE_CELL;
-            }
+        public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View itemView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.row, parent, false);
+
+            return new MyViewHolder(itemView);
+        }
+
+        @Override
+        public void onBindViewHolder(MyViewHolder holder, int position) {
+            Notification movie = moviesList.get(position);
+            holder.title.setText(movie.getFrom());
+            //holder.genre.setText(movie.getGenre());
+           // holder.year.setText(movie.getYear());
         }
 
         @Override
         public int getItemCount() {
-            return contents.size();
-        }
-
-        @Override
-        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = null;
-
-            switch (viewType) {
-                case TYPE_HEADER: {
-                    view = LayoutInflater.from(parent.getContext())
-                            .inflate(R.layout.row, parent, false);
-                    return new RecyclerView.ViewHolder(view) {
-                    };
-                }
-                case TYPE_CELL: {
-                    view = LayoutInflater.from(parent.getContext())
-                            .inflate(R.layout.row, parent, false);
-                    return new RecyclerView.ViewHolder(view) {
-                    };
-                }
-            }
-            return null;
-        }
-
-
-        @Override
-        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-            switch (getItemViewType(position)) {
-                case TYPE_HEADER:
-                    break;
-                case TYPE_CELL:
-                    break;
-            }
+            return moviesList.size();
         }
     }
 }
