@@ -2,6 +2,9 @@ package vicasintechies.in.stolx;
 
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,15 +14,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ImageView;
 
-import com.github.florent37.materialviewpager.header.MaterialViewPagerHeaderDecorator;
+import com.bumptech.glide.Glide;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.yarolegovich.discretescrollview.DiscreteScrollView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +45,8 @@ public class NotificationsFragment extends Fragment {
     private DatabaseReference mdatabase;
     private ProgressDialog prodialog;
     List<Notification> li = new ArrayList<>();
-    MoviesAdapter moviesAdapter;
+    DiscreteScrollView scrollView;
+   // MoviesAdapter moviesAdapter;
     public NotificationsFragment() {
         // Required empty public constructor
     }
@@ -68,161 +71,91 @@ public class NotificationsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_notifications, container, false);
+        View rootview = inflater.inflate(R.layout.fragment_notifications, container, false);
+        rootview.setBackgroundColor(Color.parseColor("#003c8f"));
+        return rootview;
     }
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        mdatabase = FirebaseDatabase.getInstance().getReference().child("notifications").child(uid);
-        moviesAdapter = new MoviesAdapter(li);
-        mrecyclerView = (RecyclerView) view.findViewById(R.id.notifyrecycle);
+        mdatabase = FirebaseDatabase.getInstance().getReference().child("products");
+
+        mrecyclerView = (RecyclerView) view.findViewById(R.id.myoffers_recycle);
         Log.d("IT's Reaching","Notification");
         mrecyclerView.setHasFixedSize(true);
-        mrecyclerView.addItemDecoration(new MaterialViewPagerHeaderDecorator());
+        //mrecyclerView.addItemDecoration(new MaterialViewPagerHeaderDecorator());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         mrecyclerView.setLayoutManager(linearLayoutManager);
-        mrecyclerView.setAdapter(moviesAdapter);
+
 
 
         //prodialog = new ProgressDialog(getContext());
-       /* floatingActionButton = (FloatingActionButton)view.findViewById(R.id.crop_fab);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CropAddFragment cropAddFragment = new CropAddFragment();
-                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.frame,cropAddFragment,"fragment");
-                fragmentTransaction.commit();
-            }
-        });*/
+
 
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        Log.d("Stsart","gjjg");
-        li = new ArrayList<>();
-        //li.add("vinay");
-
-
-        ValueEventListener roomsValueEventListener = new ValueEventListener() {
+        Log.d("Stsart", "gjjg");
+        FirebaseRecyclerAdapter<Book,ProductViewHolder> productViewHolderFirebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Book, ProductViewHolder>(
+                Book.class,
+                R.layout.rowoffer,
+                ProductViewHolder.class,
+                mdatabase
+        ) {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for ( DataSnapshot userDataSnapshot : dataSnapshot.getChildren() ) {
-                    Log.d("notify ",userDataSnapshot.toString());
-                         /*for ( DataSnapshot roomDataSnapshot : userDataSnapshot.getChildren() ) {*/
-                            String s = userDataSnapshot.getValue().getClass().toString();
-                            Log.d("nim",s);
-                            Notification room = userDataSnapshot.getValue(Notification.class);
+            protected void populateViewHolder(ProductViewHolder viewHolder, Book model, int position) {
+                final String post_key = getRef(position).getKey().toString();
+                //viewHolder.setName(model.getName());
+                //viewHolder.setPrice("₹ "+model.getPrice());
+                /*viewHolder.setPlace(model.getPlace());
+                viewHolder.setCollege(model.getCollege());
+                viewHolder.setBranch(model.getBranch());*/
+                viewHolder.setImage(getActivity().getApplicationContext(),model.getImage());
+                viewHolder.mView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Bundle args = new Bundle();
+                        //args.putString("fragment","CropsP");
+                       /* args.putString("key",post_key);
+                        args.putString("dtable","Book");*/
+                        Intent i = new Intent(getActivity(),OrderConformationActivity.class);
+                        i.putExtras(args);
+                        startActivity(i);
+                    }
+                });
 
-                            li.add(room);
-                            moviesAdapter.notifyDataSetChanged();
+            }
 
-
+            @Override
+            public void onDataChanged() {
+                if (prodialog != null && prodialog.isShowing()) {
+                    prodialog.dismiss();
                 }
             }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
         };
-        Log.d("Noticastins ","Niyre entererd");
-        mdatabase.addListenerForSingleValueEvent(roomsValueEventListener);
-       // mrecyclerView.setAdapter(testRecyclerViewAdapter);
+        Log.d("Coming","data entererd");
+        mrecyclerView.setAdapter(productViewHolderFirebaseRecyclerAdapter);
+
     }
 
-    /*public  static class NotificationViewHolder extends RecyclerView.ViewHolder{
+    public  static class ProductViewHolder extends RecyclerView.ViewHolder{
         View mView;
-        public NotificationViewHolder(View itemView) {
+        public ProductViewHolder(View itemView) {
             super(itemView);
-            Log.d("notify","jkjkj");
             mView=itemView;
         }
 
-        public void setName(String name) {
-            TextView namee = (TextView) mView.findViewById(R.id.sname);
-            namee.setText(name);
-        }
-
-      *//*  public void setPlace(String place) {
-            TextView textView1 = (TextView) mView.findViewById(R.id.place);
-            textView1.setText(place);
-            Log.d("Coming1","name data entererd");
-        }
-*//*
-
-
-        public void setPrice(String price) {
-            TextView textView2 = (TextView) mView.findViewById(R.id.sprice);
-            textView2.setText(price);
-        }
-
-
-
-      *//*  public void setCollege(String college) {
-            TextView textView3 = (TextView) mView.findViewById(R.id.college);
-            textView3.setText(college);
-        }
-
-
-
-        public void setBranch(String branch) {
-            TextView textView4 = (TextView) mView.findViewById(R.id.branch);
-            textView4.setText(branch);
-        }*//*
-
-
-
         public void setImage(Context ctx, String image) {
-            ImageView imageView = (ImageView) mView.findViewById(R.id.simage);
-           *//* Picasso.with(ctx).load(image).into(imageView);*//*
+            ImageView imageView = (ImageView) mView.findViewById(R.id.offerimage);
+           /* Picasso.with(ctx).load(image).into(imageView);*/
             Glide.with(ctx).load(image).into(imageView);
-            Log.d("Image","gfgf");
-        }
-    }*/
-
-    class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MyViewHolder> {
-
-        private List<Notification> moviesList;
-
-        public class MyViewHolder extends RecyclerView.ViewHolder {
-            public TextView title, year, genre;
-
-            public MyViewHolder(View view) {
-                super(view);
-                title = (TextView) view.findViewById(R.id.sname);
-                /*genre = (TextView) view.findViewById(R.id.genre);
-                year = (TextView) view.findViewById(R.id.year);*/
-            }
+            Log.d("Image","inmahgeg");
         }
 
 
-        public MoviesAdapter(List<Notification> moviesList) {
-            this.moviesList = moviesList;
-        }
 
-        @Override
-        public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View itemView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.row, parent, false);
-
-            return new MyViewHolder(itemView);
-        }
-
-        @Override
-        public void onBindViewHolder(MyViewHolder holder, int position) {
-            Notification movie = moviesList.get(position);
-            holder.title.setText(movie.getFrom());
-            //holder.genre.setText(movie.getGenre());
-           // holder.year.setText(movie.getYear());
-        }
-
-        @Override
-        public int getItemCount() {
-            return moviesList.size();
-        }
     }
 }

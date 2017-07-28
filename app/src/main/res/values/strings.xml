@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Stolx</string>
+    <string name="app_name">Stolx Admin</string>
 
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
@@ -32,7 +32,14 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string-array name="products_array">
 
+
+        <item>Mini Drafter</item>
+        <item>Scientific Calculator</item>
+        <item>Drawing Board Pins</item>
+        <item>Drasheet Containers</item>
+    </string-array>
     <string-array name="college_array">
         <item>SIT</item>
         <item>SSIT</item>

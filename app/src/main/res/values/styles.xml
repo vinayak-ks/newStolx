@@ -48,6 +48,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+
     </style>
 
     <style name="MenuLabelsStyle">
@@ -63,7 +64,7 @@
         <item name="fab_showAnimation">@anim/jump_from_down</item>
         <item name="fab_hideAnimation">@anim/jump_to_down</item>
         <item name="fab_shadowColor">#444</item>
-        <item name="fab_colorNormal">#FFB805</item>
+        <item name="fab_colorNormal">#FF5722</item>
         <item name="fab_colorPressed">#F2AB00</item>
         <item name="fab_colorRipple">#D99200</item>
     </style>

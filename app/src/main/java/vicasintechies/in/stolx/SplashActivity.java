@@ -6,8 +6,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.android.gms.ads.MobileAds;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -20,6 +19,7 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         // FirebaseApp.initializeApp(this);
         //Shimmer effect
+        MobileAds.initialize(this,"ca-app-pub-6744256522448589~8715633390");
         ShimmerFrameLayout container =
                 (ShimmerFrameLayout) findViewById(R.id.shimmer_view_container);
         container.startShimmerAnimation();

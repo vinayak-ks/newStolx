@@ -34,7 +34,14 @@
         fab:menu_labels_singleLine="true"
 
         fab:menu_labels_position="left">
+        <com.github.clans.fab.FloatingActionButton
 
+            android:id="@+id/fabOffer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_edit"
+            fab:fab_label="Upload Offers"
+            style="@style/MenuButtonsStyle" />
         <com.github.clans.fab.FloatingActionButton
 
             android:id="@+id/fabBook"
@@ -43,6 +50,7 @@
             android:src="@drawable/ic_edit"
             fab:fab_label="Sell Book"
             style="@style/MenuButtonsStyle" />
+
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fabXerox"

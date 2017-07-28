@@ -5,187 +5,206 @@
     android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@drawable/images"
     tools:context="vicasintechies.in.stolx.RegisterActivity">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
+        android:layout_height="wrap_content"
+        android:weightSum="10"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="9"
+            >
 
-        <com.github.florent37.materialtextfield.MaterialTextField
-            android:layout_width="300dp"
+            <com.github.florent37.materialtextfield.MaterialTextField
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginTop="5dp"
+                app:mtf_cardCollapsedHeight="4dp"
+                app:mtf_hasFocus="false"
+                app:mtf_image="@drawable/account"
+                app:mtf_labelColor="@android:color/holo_red_dark"
+                app:mtf_openKeyboardOnFocus="true">
+
+                <!--
+                app:mtf_animationDuration="1000"
+                app:mtf_cardColor="@color/cardview_dark_background"
+                app:mtf_labelColor="@android:color/holo_red_dark"
+                app:mtf_openKeyboardOnFocus="true"
+                -->
+
+                <EditText
+                    android:id="@+id/registerusername"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Full Name"
+                    android:maxLines="1"
+                    android:textColor="@android:color/darker_gray"
+                    android:textColorHint="@android:color/white"
+                    android:textSize="18sp" />
+
+            </com.github.florent37.materialtextfield.MaterialTextField>
+
+            <com.github.florent37.materialtextfield.MaterialTextField
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginTop="20dp"
+                app:mtf_cardCollapsedHeight="4dp"
+                app:mtf_hasFocus="false"
+                app:mtf_image="@drawable/phone"
+                app:mtf_labelColor="@android:color/holo_red_dark"
+                app:mtf_openKeyboardOnFocus="true">
+
+                <!--
+                app:mtf_animationDuration="1000"
+                app:mtf_cardColor="@color/cardview_dark_background"
+                app:mtf_labelColor="@android:color/holo_red_dark"
+                app:mtf_openKeyboardOnFocus="true"
+                -->
+
+                <EditText
+                    android:id="@+id/registerphno"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Email"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"
+                    android:textColor="@android:color/darker_gray"
+                    android:textColorHint="@android:color/white"
+                    android:textSize="18sp" />
+
+            </com.github.florent37.materialtextfield.MaterialTextField>
+            <com.github.florent37.materialtextfield.MaterialTextField
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginTop="20dp"
+                app:mtf_cardCollapsedHeight="4dp"
+                app:mtf_hasFocus="false"
+                app:mtf_image="@drawable/account"
+                app:mtf_labelColor="@android:color/holo_red_dark"
+                app:mtf_openKeyboardOnFocus="true">
+
+                <!--
+                app:mtf_animationDuration="1000"
+                app:mtf_cardColor="@color/cardview_dark_background"
+                app:mtf_labelColor="@android:color/holo_red_dark"
+                app:mtf_openKeyboardOnFocus="true"
+                -->
+
+                <EditText
+                    android:id="@+id/registerclgname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="College Name"
+                    android:maxLines="1"
+                    android:textColor="@android:color/darker_gray"
+                    android:textColorHint="@android:color/white"
+                    android:textSize="18sp" />
+
+            </com.github.florent37.materialtextfield.MaterialTextField>
+            <com.github.florent37.materialtextfield.MaterialTextField
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginTop="20dp"
+                app:mtf_cardCollapsedHeight="4dp"
+                app:mtf_hasFocus="false"
+                app:mtf_image="@drawable/account"
+                app:mtf_labelColor="@android:color/holo_red_dark"
+                app:mtf_openKeyboardOnFocus="true">
+
+                <!--
+                app:mtf_animationDuration="1000"
+                app:mtf_cardColor="@color/cardview_dark_background"
+                app:mtf_labelColor="@android:color/holo_red_dark"
+                app:mtf_openKeyboardOnFocus="true"
+                -->
+
+                <EditText
+                    android:id="@+id/registercity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="City"
+                    android:maxLines="1"
+                    android:textColor="@android:color/darker_gray"
+                    android:textColorHint="@android:color/white"
+                    android:textSize="18sp" />
+
+            </com.github.florent37.materialtextfield.MaterialTextField>
+            <com.github.florent37.materialtextfield.MaterialTextField
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginTop="20dp"
+                app:mtf_cardCollapsedHeight="4dp"
+                app:mtf_hasFocus="false"
+                app:mtf_image="@drawable/account"
+                app:mtf_labelColor="@android:color/holo_red_dark"
+                app:mtf_openKeyboardOnFocus="true">
+
+                <!--
+                app:mtf_animationDuration="1000"
+                app:mtf_cardColor="@color/cardview_dark_background"
+                app:mtf_labelColor="@android:color/holo_red_dark"
+                app:mtf_openKeyboardOnFocus="true"
+                -->
+
+                <EditText
+                    android:id="@+id/branch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Branch"
+                    android:maxLines="1"
+                    android:textColor="@android:color/darker_gray"
+                    android:textColorHint="@android:color/white"
+                    android:textSize="18sp" />
+
+            </com.github.florent37.materialtextfield.MaterialTextField>
+
+            <Button
+                android:id="@+id/registerbutton"
+                android:layout_width="132dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginRight="30dp"
+                android:elevation="10dp"
+                android:paddingTop="10dp"
+                android:text="Register" />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
-            android:layout_marginTop="10dp"
-            app:mtf_cardCollapsedHeight="4dp"
-            app:mtf_hasFocus="false"
-            app:mtf_image="@drawable/account"
-            app:mtf_labelColor="@android:color/holo_red_dark"
-            app:mtf_openKeyboardOnFocus="true">
+            android:layout_weight="1">
 
-            <!--
-            app:mtf_animationDuration="1000"
-            app:mtf_cardColor="@color/cardview_dark_background"
-            app:mtf_labelColor="@android:color/holo_red_dark"
-            app:mtf_openKeyboardOnFocus="true"
-            -->
-
-            <EditText
-                android:id="@+id/registerusername"
+            <com.google.android.gms.ads.AdView
+                xmlns:ads="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/adView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Full Name"
-                android:maxLines="1"
-                android:textColor="@android:color/darker_gray"
-                android:textColorHint="@android:color/white"
-                android:textSize="18sp" />
+                ads:adSize="SMART_BANNER"
+                ads:adUnitId="ca-app-pub-6744256522448589/4806988602">
+            </com.google.android.gms.ads.AdView>
 
-        </com.github.florent37.materialtextfield.MaterialTextField>
-        <com.github.florent37.materialtextfield.MaterialTextField
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
-            android:layout_marginTop="20dp"
-            app:mtf_cardCollapsedHeight="4dp"
-            app:mtf_hasFocus="false"
-            app:mtf_image="@drawable/phone"
-            app:mtf_labelColor="@android:color/holo_red_dark"
-            app:mtf_openKeyboardOnFocus="true">
+        </LinearLayout>
 
-            <!--
-            app:mtf_animationDuration="1000"
-            app:mtf_cardColor="@color/cardview_dark_background"
-            app:mtf_labelColor="@android:color/holo_red_dark"
-            app:mtf_openKeyboardOnFocus="true"
-            -->
-
-            <EditText
-                android:id="@+id/registerphno"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Email"
-                android:inputType="textEmailAddress"
-                android:maxLines="1"
-                android:textColor="@android:color/darker_gray"
-                android:textColorHint="@android:color/white"
-                android:textSize="18sp" />
-
-        </com.github.florent37.materialtextfield.MaterialTextField>
-        <com.github.florent37.materialtextfield.MaterialTextField
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
-            android:layout_marginTop="20dp"
-            app:mtf_cardCollapsedHeight="4dp"
-            app:mtf_hasFocus="false"
-            app:mtf_image="@drawable/account"
-            app:mtf_labelColor="@android:color/holo_red_dark"
-            app:mtf_openKeyboardOnFocus="true">
-
-            <!--
-            app:mtf_animationDuration="1000"
-            app:mtf_cardColor="@color/cardview_dark_background"
-            app:mtf_labelColor="@android:color/holo_red_dark"
-            app:mtf_openKeyboardOnFocus="true"
-            -->
-
-            <EditText
-                android:id="@+id/registerclgname"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="College Name"
-                android:maxLines="1"
-                android:textColor="@android:color/darker_gray"
-                android:textColorHint="@android:color/white"
-                android:textSize="18sp" />
-
-        </com.github.florent37.materialtextfield.MaterialTextField>
-        <com.github.florent37.materialtextfield.MaterialTextField
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
-            android:layout_marginTop="20dp"
-            app:mtf_cardCollapsedHeight="4dp"
-            app:mtf_hasFocus="false"
-            app:mtf_image="@drawable/account"
-            app:mtf_labelColor="@android:color/holo_red_dark"
-            app:mtf_openKeyboardOnFocus="true">
-
-            <!--
-            app:mtf_animationDuration="1000"
-            app:mtf_cardColor="@color/cardview_dark_background"
-            app:mtf_labelColor="@android:color/holo_red_dark"
-            app:mtf_openKeyboardOnFocus="true"
-            -->
-
-            <EditText
-                android:id="@+id/registercity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="City"
-                android:maxLines="1"
-                android:textColor="@android:color/darker_gray"
-                android:textColorHint="@android:color/white"
-                android:textSize="18sp" />
-
-        </com.github.florent37.materialtextfield.MaterialTextField>
-        <com.github.florent37.materialtextfield.MaterialTextField
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
-            android:layout_marginTop="20dp"
-            app:mtf_cardCollapsedHeight="4dp"
-            app:mtf_hasFocus="false"
-            app:mtf_image="@drawable/account"
-            app:mtf_labelColor="@android:color/holo_red_dark"
-            app:mtf_openKeyboardOnFocus="true">
-
-            <!--
-            app:mtf_animationDuration="1000"
-            app:mtf_cardColor="@color/cardview_dark_background"
-            app:mtf_labelColor="@android:color/holo_red_dark"
-            app:mtf_openKeyboardOnFocus="true"
-            -->
-
-            <EditText
-                android:id="@+id/branch"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Branch"
-                android:maxLines="1"
-                android:textColor="@android:color/darker_gray"
-                android:textColorHint="@android:color/white"
-                android:textSize="18sp" />
-
-        </com.github.florent37.materialtextfield.MaterialTextField>
-
-        <Button
-            android:id="@+id/registerbutton"
-            android:layout_width="132dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginRight="30dp"
-            android:elevation="10dp"
-            android:paddingTop="10dp"
-            android:text="Register" />
     </LinearLayout>
-
-
-
 
 </android.support.design.widget.CoordinatorLayout>

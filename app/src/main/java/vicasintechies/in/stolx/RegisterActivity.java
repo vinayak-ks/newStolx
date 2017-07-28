@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,6 +29,7 @@ public class RegisterActivity extends AppCompatActivity {
     private CoordinatorLayout coordinatorLayout;
     private ProgressDialog prodialog;
     private String clg,city;
+    private AdView mAdView;
 
 
     @Override
@@ -41,6 +44,13 @@ public class RegisterActivity extends AppCompatActivity {
         rbranch=(EditText)findViewById(R.id.branch);
         rsub = (Button)findViewById(R.id.registerbutton);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
+
+
+        mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice("A6EEE47EABF89231D91A21C973A96CCC").build();
+        mAdView.loadAd(adRequest);
 
 
 

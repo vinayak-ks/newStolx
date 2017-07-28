@@ -69,7 +69,7 @@ public class XeroxFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_xerox, container, false);
-        rootView.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        rootView.setBackgroundColor(Color.parseColor("#003c8f"));
        /* FirebaseDatabase.getInstance().setPersistenceEnabled(true);*/
         // Inflate the layout for this fragment
         return rootView;
@@ -179,7 +179,7 @@ public class XeroxFragment extends Fragment {
         }
 
         public void setName(String name) {
-            TextView namee = (TextView) mView.findViewById(R.id.sname);
+            TextView namee = (TextView) mView.findViewById(R.id.myname);
             namee.setText(name);
         }
 
@@ -213,7 +213,7 @@ public class XeroxFragment extends Fragment {
 
 
         public void setImage(Context ctx, String image) {
-            ImageView imageView = (ImageView) mView.findViewById(R.id.simage);
+            ImageView imageView = (ImageView) mView.findViewById(R.id.myimage);
            /* Picasso.with(ctx).load(image).into(imageView);*/
             Glide.with(ctx).load(image).into(imageView);
             Log.d("Image","inmahgeg");

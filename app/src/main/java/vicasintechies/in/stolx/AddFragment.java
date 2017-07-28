@@ -13,9 +13,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -40,7 +43,7 @@ import static android.app.Activity.RESULT_OK;
  * Use the {@link AddFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AddFragment extends Fragment {
+public class AddFragment extends Fragment implements AdapterView.OnItemSelectedListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -49,15 +52,15 @@ public class AddFragment extends Fragment {
     private ImageButton imageButton;
     private EditText editName;
     private EditText editPrice;
-    private EditText editCollege;
-    private EditText editPlace;
-    private EditText editBranch;
+    private Spinner editCollege;
+    private Spinner editPlace;
+    private Spinner editBranch;
     private Button button;
     private Uri imageuri = null;
     private ProgressDialog prodialog;
     private String strtext;
     private String strimg;
-
+    String a,b,c;
     private StorageReference storageReference;
     private DatabaseReference databserefernce;
 
@@ -111,7 +114,7 @@ public class AddFragment extends Fragment {
 
         Log.d("Table",strtext);
         Log.d("Tableimg",strimg);
-        rootview.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        rootview.setBackgroundColor(Color.parseColor("#003c8f"));
         // Inflate the layout for this fragment
         return rootview;
     }
@@ -165,10 +168,26 @@ public class AddFragment extends Fragment {
         imageButton = (ImageButton)getView().findViewById(R.id.postimage);
         editName =(EditText)getView().findViewById(R.id.editname);
         editPrice =(EditText)getView().findViewById(R.id.editprice);
-        editPlace =(EditText)getView().findViewById(R.id.editplace);
-        editCollege =(EditText)getView().findViewById(R.id.editcollege);
-        editBranch =(EditText)getView().findViewById(R.id.editbranch);
+        editPlace =(Spinner)getView().findViewById(R.id.editplace);
+        editCollege =(Spinner)getView().findViewById(R.id.editcollege);
+        editBranch =(Spinner)getView().findViewById(R.id.editbranch);
         button =(Button)getView().findViewById(R.id.sell);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),R.array.college_array, android.R.layout.simple_spinner_item);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        editCollege.setAdapter(adapter);
+        editCollege.setOnItemSelectedListener(this);
+
+        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(getActivity(),R.array.branch_array, android.R.layout.simple_spinner_item);
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        editBranch.setAdapter(adapter1);
+        editBranch.setOnItemSelectedListener(this);
+
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(getActivity(),R.array.city_array, android.R.layout.simple_spinner_item);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        editPlace.setAdapter(adapter2);
+        editPlace.setOnItemSelectedListener(this);
+
 
         prodialog = new ProgressDialog(getContext());
         imageButton.setOnClickListener(new View.OnClickListener() {
@@ -204,9 +223,9 @@ public class AddFragment extends Fragment {
         prodialog.show();
         final String name= editName.getText().toString().trim();
         final String price= editPrice.getText().toString().trim();
-        final String place= editPlace.getText().toString().trim();
-        final String college= editCollege.getText().toString().trim();
-        final String branch= editBranch.getText().toString().trim();
+        final String place= c;
+        final String college= a;
+        final String branch= b;
 
         Date date = new Date();
         Date newDate = new Date();
@@ -282,6 +301,25 @@ public class AddFragment extends Fragment {
             }
         }
 
+
+    }
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        switch (adapterView.getId()){
+            case R.id.edit_college: a = (String) adapterView.getItemAtPosition(i);
+                Log.d("taag",a);
+                break;
+            case R.id.edit_branch: b = (String)adapterView.getItemAtPosition(i);Log.d("taag1",b);break;
+
+            case R.id.edit_place: c=(String)adapterView.getItemAtPosition(i);break;
+
+        }
+
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
 }

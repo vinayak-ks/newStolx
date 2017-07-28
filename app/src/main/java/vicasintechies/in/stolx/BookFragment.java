@@ -4,6 +4,7 @@ package vicasintechies.in.stolx;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,9 +20,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.github.florent37.materialviewpager.header.MaterialViewPagerHeaderDecorator;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.yarolegovich.discretescrollview.DiscreteScrollView;
 
 
 /**
@@ -33,8 +34,9 @@ public class BookFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private RecyclerView mrecyclerView;
-    private DatabaseReference mdatabase;
+    private DatabaseReference mdatabase,pdb;
     private ProgressDialog prodialog;
+    private static final int AD_VIEW_TYPE=1;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -43,7 +45,7 @@ public class BookFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
-
+    DiscreteScrollView scrollView;
     public BookFragment() {
         // Required empty public constructor
     }
@@ -68,7 +70,8 @@ public class BookFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_book, container, false);
-        //rootView.setBackgroundColor(Color.parseColor("#42a5f5"));
+        rootView.setBackgroundColor(Color.parseColor("#003c8f"));
+        scrollView = (DiscreteScrollView)rootView.findViewById(R.id.picker);
        /* FirebaseDatabase.getInstance().setPersistenceEnabled(true);*/
         // Inflate the layout for this fragment
         return rootView;
@@ -80,10 +83,11 @@ public class BookFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mdatabase = FirebaseDatabase.getInstance().getReference().child("Book");
 
+
         mrecyclerView = (RecyclerView) view.findViewById(R.id.bookrecyclerView);
 
         mrecyclerView.setHasFixedSize(true);
-        mrecyclerView.addItemDecoration(new MaterialViewPagerHeaderDecorator());
+        //mrecyclerView.addItemDecoration(new MaterialViewPagerHeaderDecorator());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         mrecyclerView.setLayoutManager(linearLayoutManager);
 
@@ -126,6 +130,7 @@ public class BookFragment extends Fragment {
         super.onStart();
         //prodialog.setMessage("Loading");
         //prodialog.show();
+
         FirebaseRecyclerAdapter<Book,BookViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Book, BookViewHolder>(
                 Book.class,
                 R.layout.row,
@@ -163,12 +168,15 @@ public class BookFragment extends Fragment {
                 }
             }
         };
-        Log.d("Coming","data entererd");
+
         mrecyclerView.setAdapter(firebaseRecyclerAdapter);
+    }
+
         /*mrecyclerView.setHasFixedSize(true);*/
         /*LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         mrecyclerView.setLayoutManager(linearLayoutManager);*/
-    }
+
+
 
     public  static class BookViewHolder extends RecyclerView.ViewHolder{
         View mView;
@@ -178,7 +186,7 @@ public class BookFragment extends Fragment {
         }
 
         public void setName(String name) {
-            TextView namee = (TextView) mView.findViewById(R.id.sname);
+            TextView namee = (TextView) mView.findViewById(R.id.myname);
             namee.setText(name);
         }
 
@@ -212,12 +220,13 @@ public class BookFragment extends Fragment {
 
 
         public void setImage(Context ctx, String image) {
-            ImageView imageView = (ImageView) mView.findViewById(R.id.simage);
+            ImageView imageView = (ImageView) mView.findViewById(R.id.myimage);
            /* Picasso.with(ctx).load(image).into(imageView);*/
             Glide.with(ctx).load(image).into(imageView);
             Log.d("Image","inmahgeg");
         }
     }
+
 
     @Override
     public void onDetach() {

@@ -1,0 +1,232 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="vicasintechies.in.stolx.MyPostSelectorFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="5dp"
+            android:id="@+id/mybooks">
+            <LinearLayout
+                android:orientation="vertical"
+                android:background="@drawable/ic_googleg_color_24dp"
+                android:layout_width="fill_parent"
+                android:layout_height="100.0dip"
+                android:minHeight="150.0dip"
+                >
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="190.0dip"
+                    android:minHeight="190.0dip"
+                    android:layout_weight="1.0">
+                    <ImageView
+                        android:id="@+id/image_my_book"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:src="@drawable/mybook"
+                        android:scaleType="fitXY"
+                        />
+                    <TextView
+                        android:textSize="48.0sp"
+                        android:textColor="@android:color/white"
+
+                        android:background="@android:color/transparent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="24.0dip"
+                        android:layout_marginBottom="11dp"
+                        android:text="Books"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="17dp" />
+                </RelativeLayout>
+                <LinearLayout
+                    android:gravity="right"
+                    android:orientation="vertical"
+                    android:background="@color/black_overlay"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.0">
+
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="5dp"
+            android:id="@+id/myxerox">
+            <LinearLayout
+                android:orientation="vertical"
+                android:background="@drawable/ic_googleg_color_24dp"
+                android:layout_width="fill_parent"
+                android:layout_height="100.0dip"
+                android:minHeight="150.0dip"
+                >
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="190.0dip"
+                    android:minHeight="190.0dip"
+                    android:layout_weight="1.0">
+                    <ImageView
+                        android:id="@id/image"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:src="@drawable/myxerox"
+                        android:scaleType="fitXY"
+                        />
+                    <TextView
+                        android:textSize="48.0sp"
+                        android:textColor="@android:color/white"
+                        android:id="@+id/list_item_google_cards_travel_category_name"
+                        android:background="@android:color/transparent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="24.0dip"
+                        android:layout_marginBottom="11dp"
+                        android:text="Xerox"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="19dp" />
+                </RelativeLayout>
+                <LinearLayout
+                    android:gravity="right"
+                    android:orientation="vertical"
+                    android:background="@color/black_overlay"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.0">
+
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="5dp"
+            android:id="@+id/myinstruments">
+            <LinearLayout
+                android:orientation="vertical"
+                android:background="@drawable/ic_googleg_color_24dp"
+                android:layout_width="fill_parent"
+                android:layout_height="100.0dip"
+                android:minHeight="150.0dip"
+                >
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="190.0dip"
+                    android:minHeight="190.0dip"
+                    android:layout_weight="1.0">
+                    <ImageView
+                        android:id="@id/image"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:src="@drawable/myinstru"
+                        android:scaleType="fitXY"
+                        />
+                    <TextView
+                        android:textSize="48.0sp"
+                        android:textColor="@android:color/white"
+
+                        android:background="@android:color/transparent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="24.0dip"
+                        android:text="Instruments"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="12dp" />
+                </RelativeLayout>
+                <LinearLayout
+                    android:gravity="right"
+                    android:orientation="vertical"
+                    android:background="@color/black_overlay"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.0">
+
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="5dp"
+            android:id="@+id/myothers">
+            <LinearLayout
+                android:orientation="vertical"
+                android:background="@drawable/ic_googleg_color_24dp"
+                android:layout_width="fill_parent"
+                android:layout_height="100.0dip"
+                android:minHeight="150.0dip"
+                >
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="190.0dip"
+                    android:minHeight="190.0dip"
+                    android:layout_weight="1.0">
+                    <ImageView
+                        android:id="@id/image"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:src="@drawable/others"
+                        android:scaleType="fitXY"
+                        />
+                    <TextView
+                        android:textSize="48.0sp"
+                        android:textColor="@android:color/white"
+
+                        android:background="@android:color/transparent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="24.0dip"
+                        android:text="Others"
+                        android:layout_marginEnd="12dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentEnd="true" />
+                </RelativeLayout>
+                <LinearLayout
+                    android:gravity="right"
+                    android:orientation="vertical"
+                    android:background="@color/black_overlay"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.0">
+
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+
+
+
+
+    </LinearLayout>
+    <!-- TODO: Update blank fragment layout -->
+
+</FrameLayout>

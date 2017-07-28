@@ -15,11 +15,12 @@ import java.util.Arrays;
 
 public class LoginActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN = 123;
+    private PrefManager prefManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        prefManager = new PrefManager(this);
         FirebaseAuth auth = FirebaseAuth.getInstance();
         if (auth.getCurrentUser() != null) {
             startActivity(new Intent(this, MainActivity.class));
@@ -52,8 +53,14 @@ public class LoginActivity extends AppCompatActivity {
             // Successfully signed in
             if (resultCode == ResultCodes.OK) {
                 //startActivity(MainActivity.createIntent(this, response));
-                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
-                finish();
+                if(prefManager.isFirstTimeLaunch()){
+                    prefManager.setFirstTimeLaunch(false);
+                    startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+                    finish();
+                }else {
+                    startActivity(new Intent(LoginActivity.this,NavigationActivity.class));
+                }
+
                 return;
             } else {
                 // Sign in failed

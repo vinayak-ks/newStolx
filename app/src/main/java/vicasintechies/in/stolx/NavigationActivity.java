@@ -1,5 +1,7 @@
 package vicasintechies.in.stolx;
 
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -8,14 +10,18 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionMenu;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class NavigationActivity extends AppCompatActivity
@@ -24,8 +30,10 @@ com.github.clans.fab.FloatingActionButton fab1;
     com.github.clans.fab.FloatingActionButton fab2;
     com.github.clans.fab.FloatingActionButton fab3;
     com.github.clans.fab.FloatingActionButton fab4;
-
+    com.github.clans.fab.FloatingActionButton fab5;
+    ProgressDialog progressDialog;
     FloatingActionMenu menu_labels;
+    private InterstitialAd mInterstitialAd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,20 +49,26 @@ com.github.clans.fab.FloatingActionButton fab1;
                         .setAction("Action", null).show();
             }
         });
+
 */
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-6744256522448589/8441382795");
+        mInterstitialAd.loadAd(new AdRequest.Builder().addTestDevice("A6EEE47EABF89231D91A21C973A96CCC").build());
         menu_labels = (FloatingActionMenu) findViewById(R.id.menu_labels_right);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         Fragment fragment = new BlankFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.frame,fragment,"fragment");
+        fragmentTransaction.replace(R.id.frame,fragment,"fragment");
         fragmentTransaction.commit();
+
+        progressDialog = new ProgressDialog(this);
+        fab5 =  (com.github.clans.fab.FloatingActionButton) findViewById(R.id.fabOffer);
         fab1 = (com.github.clans.fab.FloatingActionButton) findViewById(R.id.fabBook);
         fab2 = (com.github.clans.fab.FloatingActionButton) findViewById(R.id.fabXerox);
         fab3 = (com.github.clans.fab.FloatingActionButton) findViewById(R.id.fabInstruments);
@@ -74,7 +88,7 @@ com.github.clans.fab.FloatingActionButton fab1;
                 AddFragment fragment = new AddFragment();
                 fragment.setArguments(bundle);
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.add(R.id.frame,fragment,"fragment");
+                fragmentTransaction.replace(R.id.frame,fragment,"fragment").addToBackStack(null);
                 fragmentTransaction.commit();
             }
         });
@@ -91,7 +105,7 @@ com.github.clans.fab.FloatingActionButton fab1;
                 AddFragment fragment = new AddFragment();
                 fragment.setArguments(bundle);
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.add(R.id.frame,fragment,"fragment");
+                fragmentTransaction.replace(R.id.frame,fragment,"fragment").addToBackStack(null);
                 fragmentTransaction.commit();
 
             }
@@ -109,7 +123,7 @@ com.github.clans.fab.FloatingActionButton fab1;
                 AddFragment fragment = new AddFragment();
                 fragment.setArguments(bundle);
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.add(R.id.frame,fragment,"fragment");
+                fragmentTransaction.replace(R.id.frame,fragment,"fragment").addToBackStack(null);
                 fragmentTransaction.commit();
 
             }
@@ -127,19 +141,56 @@ com.github.clans.fab.FloatingActionButton fab1;
                 AddFragment fragment = new AddFragment();
                 fragment.setArguments(bundle);
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.add(R.id.frame,fragment,"fragment");
+                fragmentTransaction.replace(R.id.frame,fragment,"fragment").addToBackStack(null);
                 fragmentTransaction.commit();
 
             }
         });
-    }
+        fab5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                menu_labels.close(true);
+                Bundle bundle = new Bundle();
+                bundle.putString("table", "products");
+                bundle.putString("imgtable","ProductImages");
 
+                AddFragment fragment = new AddFragment();
+                fragment.setArguments(bundle);
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.frame,fragment,"fragment").addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+    }
+    boolean doubleBackToExitPressedOnce = false;
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+
+        }
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStack();
+        } else if (!doubleBackToExitPressedOnce) {
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this,"Please click BACK again to exit.", Toast.LENGTH_SHORT).show();
+            new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Exit")
+                    .setMessage("Are you sure you want to exit?")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //finish();
+                            if (mInterstitialAd.isLoaded()) {
+                                Log.d("Inters","inrt");
+                                mInterstitialAd.show();
+                            }
+                            doubleBackToExitPressedOnce = false;
+                            System.exit(0);
+                        }
+                    }).setNegativeButton("No", null).show();
+        }else{
             super.onBackPressed();
         }
     }
@@ -172,23 +223,35 @@ com.github.clans.fab.FloatingActionButton fab1;
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_logout) {
             // Handle the camera action
-
+            progressDialog.setMessage("Signing out ...");
+            progressDialog.show();
             FirebaseAuth.getInstance().signOut();
             startActivity(new Intent(NavigationActivity.this,LoginActivity.class));
+            progressDialog.dismiss();
             finish();
             
-        } else if (id == R.id.nav_gallery) {
-            Bundle args = new Bundle();
-            args.putString("user","default");
-            Intent i = new Intent(NavigationActivity.this,NoticationActivity.class);
-            i.putExtras(args);
-            startActivity(i);
+        } else if (id == R.id.nav_home) {
+            Fragment fragment = new BlankFragment();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.frame,fragment,"fragment");
+            fragmentTransaction.commit();
                 //finish();
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_orders) {
+            Fragment fragment = new MyOrderFragment();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.frame,fragment,"fragment").addToBackStack(null);
+            fragmentTransaction.commit();
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_post) {
+            progressDialog.setMessage("Please wait ...");
+            progressDialog.show();
+            Fragment fragment = new MyPostSelectorFragment();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.frame,fragment,"fragment").addToBackStack(null);
+            fragmentTransaction.commit();
+            progressDialog.dismiss();
 
         } else if (id == R.id.nav_share) {
 
@@ -200,4 +263,6 @@ com.github.clans.fab.FloatingActionButton fab1;
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+    //boolean doubleBackToExitPressedOnce = false;
+
 }
