@@ -19,7 +19,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.NativeExpressAdView;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -43,7 +46,7 @@ import static android.app.Activity.RESULT_OK;
  * Use the {@link AddFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AddFragment extends Fragment implements AdapterView.OnItemSelectedListener{
+public class AddFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -60,6 +63,9 @@ public class AddFragment extends Fragment implements AdapterView.OnItemSelectedL
     private ProgressDialog prodialog;
     private String strtext;
     private String strimg;
+    private String phoneno;
+    private String clg,branch,place;
+
     String a,b,c;
     private StorageReference storageReference;
     private DatabaseReference databserefernce;
@@ -98,6 +104,10 @@ public class AddFragment extends Fragment implements AdapterView.OnItemSelectedL
         super.onCreate(savedInstanceState);
 
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        phoneno = user.getPhoneNumber();
+
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -109,6 +119,15 @@ public class AddFragment extends Fragment implements AdapterView.OnItemSelectedL
                              Bundle savedInstanceState) {
         View rootview = inflater.inflate(R.layout.fragment_add, container, false);
 
+
+        //ads
+        NativeExpressAdView adView = (NativeExpressAdView) rootview.findViewById(R.id.adView);
+
+        AdRequest request = new AdRequest.Builder()
+                .addTestDevice("CEB43289F6636A1BC8ECD3D520DBB186").build();
+        adView.loadAd(request);
+
+        //
         strtext = getArguments().getString("table");
         strimg = getArguments().getString("imgtable");
 
@@ -172,21 +191,53 @@ public class AddFragment extends Fragment implements AdapterView.OnItemSelectedL
         editCollege =(Spinner)getView().findViewById(R.id.editcollege);
         editBranch =(Spinner)getView().findViewById(R.id.editbranch);
         button =(Button)getView().findViewById(R.id.sell);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),R.array.college_array, android.R.layout.simple_spinner_item);
 
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),R.array.college_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         editCollege.setAdapter(adapter);
-        editCollege.setOnItemSelectedListener(this);
+        editCollege.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            clg = parent.getItemAtPosition(position).toString();
+                Log.d("ola","came");
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(getActivity(),R.array.branch_array, android.R.layout.simple_spinner_item);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         editBranch.setAdapter(adapter1);
-        editBranch.setOnItemSelectedListener(this);
+        editBranch.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                branch=parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+
+            }
+        });
 
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(getActivity(),R.array.city_array, android.R.layout.simple_spinner_item);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         editPlace.setAdapter(adapter2);
-        editPlace.setOnItemSelectedListener(this);
+        editPlace.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                place = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
 
         prodialog = new ProgressDialog(getContext());
@@ -220,20 +271,19 @@ public class AddFragment extends Fragment implements AdapterView.OnItemSelectedL
     private void startPosting() {
 
         prodialog.setMessage("Uploading");
-        prodialog.show();
+
         final String name= editName.getText().toString().trim();
         final String price= editPrice.getText().toString().trim();
-        final String place= c;
-        final String college= a;
-        final String branch= b;
 
         Date date = new Date();
-        Date newDate = new Date();
+        final Date newDate = new Date();
         SimpleDateFormat dt = new SimpleDateFormat("dd-MMM-yyyy");
         final String stringdate = dt.format(newDate);
 
-        if(!TextUtils.isEmpty(name)&&!TextUtils.isEmpty(price)&&!TextUtils.isEmpty(place)&&!TextUtils.isEmpty(college)&&!TextUtils.isEmpty(branch)&&imageuri!=null){
 
+
+        if(!TextUtils.isEmpty(name) || !TextUtils.isEmpty(price)){
+            prodialog.show();
             StorageReference filepath = storageReference.child(strimg).child(imageuri.getLastPathSegment());
 
             filepath.putFile(imageuri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -247,11 +297,13 @@ public class AddFragment extends Fragment implements AdapterView.OnItemSelectedL
                     newpost.child("Name").setValue(name);
                     newpost.child("Price").setValue(price);
                     newpost.child("Place").setValue(place);
-                    newpost.child("College").setValue(college);
+                    newpost.child("College").setValue(clg);
                     newpost.child("Branch").setValue(branch);
                     newpost.child("Image").setValue(downloadUri.toString());
                     newpost.child("SDate").setValue(stringdate);
+                    newpost.child("Phone").setValue(phoneno);
                     newpost.child("Uid").setValue(currentFirebaseUser.getUid());
+                    Log.d("Book","bookdata");
                     /*newpost.child("Uid").setValue(FirebaseAuth.getCurrentUser)*/
                     prodialog.dismiss();
 
@@ -261,7 +313,7 @@ public class AddFragment extends Fragment implements AdapterView.OnItemSelectedL
                     fragmentTransaction.commit();
 */
                    startActivity(new Intent(getActivity(),NavigationActivity.class));
-                    Log.d("Book","bookdata");
+
 
                    /* if (strtext.equals("Book")){
 
@@ -285,6 +337,9 @@ public class AddFragment extends Fragment implements AdapterView.OnItemSelectedL
                 }
             });
         }
+        else {
+            Toast.makeText(getActivity(),"Enter all fields",Toast.LENGTH_LONG).show();
+        }
 
     }
 
@@ -303,13 +358,15 @@ public class AddFragment extends Fragment implements AdapterView.OnItemSelectedL
 
 
     }
-    @Override
+ /*   @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         switch (adapterView.getId()){
-            case R.id.edit_college: a = (String) adapterView.getItemAtPosition(i);
+            case R.id.edit_college:
+                a = adapterView.getItemAtPosition(i).toString();
                 Log.d("taag",a);
                 break;
-            case R.id.edit_branch: b = (String)adapterView.getItemAtPosition(i);Log.d("taag1",b);break;
+            case R.id.edit_branch: b = (String)adapterView.getItemAtPosition(i);
+                Log.d("taag1",b);break;
 
             case R.id.edit_place: c=(String)adapterView.getItemAtPosition(i);break;
 
@@ -320,6 +377,7 @@ public class AddFragment extends Fragment implements AdapterView.OnItemSelectedL
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
+        Toast.makeText(getContext(),"Nothing selected",Toast.LENGTH_LONG).show();
 
-    }
+    }*/
 }

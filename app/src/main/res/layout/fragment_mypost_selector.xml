@@ -222,6 +222,14 @@
 
         </android.support.v7.widget.CardView>
 
+        <com.google.android.gms.ads.NativeExpressAdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_gravity="center_horizontal"
+            ads:adSize="FULL_WIDTHx150"
+            ads:adUnitId="ca-app-pub-6744256522448589/8947777119" />
+
 
 
 

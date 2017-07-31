@@ -11,6 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.NativeExpressAdView;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -68,6 +71,13 @@ public class MyPostSelectorFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_mypost_selector, container, false);
+
+        //ads
+        NativeExpressAdView adView = (NativeExpressAdView) view.findViewById(R.id.adView);
+
+        AdRequest request = new AdRequest.Builder()
+                .addTestDevice("CEB43289F6636A1BC8ECD3D520DBB186").build();
+        adView.loadAd(request);
 
         view.setBackgroundColor(Color.parseColor("#003c8f"));
 

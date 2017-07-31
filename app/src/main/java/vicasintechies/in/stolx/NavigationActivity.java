@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionMenu;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -30,10 +31,12 @@ com.github.clans.fab.FloatingActionButton fab1;
     com.github.clans.fab.FloatingActionButton fab2;
     com.github.clans.fab.FloatingActionButton fab3;
     com.github.clans.fab.FloatingActionButton fab4;
-    com.github.clans.fab.FloatingActionButton fab5;
+   /* com.github.clans.fab.FloatingActionButton fab5;*/
     ProgressDialog progressDialog;
     FloatingActionMenu menu_labels;
     private InterstitialAd mInterstitialAd;
+    private AdView mAdView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +53,15 @@ com.github.clans.fab.FloatingActionButton fab1;
             }
         });
 
+
 */
+
+        mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice("CEB43289F6636A1BC8ECD3D520DBB186").build();
+        mAdView.loadAd(adRequest);
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -58,7 +69,7 @@ com.github.clans.fab.FloatingActionButton fab1;
         toggle.syncState();
         mInterstitialAd = new InterstitialAd(this);
         mInterstitialAd.setAdUnitId("ca-app-pub-6744256522448589/8441382795");
-        mInterstitialAd.loadAd(new AdRequest.Builder().addTestDevice("A6EEE47EABF89231D91A21C973A96CCC").build());
+        mInterstitialAd.loadAd(new AdRequest.Builder().addTestDevice("CEB43289F6636A1BC8ECD3D520DBB186").build());
         menu_labels = (FloatingActionMenu) findViewById(R.id.menu_labels_right);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -68,7 +79,7 @@ com.github.clans.fab.FloatingActionButton fab1;
         fragmentTransaction.commit();
 
         progressDialog = new ProgressDialog(this);
-        fab5 =  (com.github.clans.fab.FloatingActionButton) findViewById(R.id.fabOffer);
+        /*fab5 =  (com.github.clans.fab.FloatingActionButton) findViewById(R.id.fabOffer);*/
         fab1 = (com.github.clans.fab.FloatingActionButton) findViewById(R.id.fabBook);
         fab2 = (com.github.clans.fab.FloatingActionButton) findViewById(R.id.fabXerox);
         fab3 = (com.github.clans.fab.FloatingActionButton) findViewById(R.id.fabInstruments);
@@ -146,7 +157,7 @@ com.github.clans.fab.FloatingActionButton fab1;
 
             }
         });
-        fab5.setOnClickListener(new View.OnClickListener() {
+      /*  fab5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 menu_labels.close(true);
@@ -160,7 +171,7 @@ com.github.clans.fab.FloatingActionButton fab1;
                 fragmentTransaction.replace(R.id.frame,fragment,"fragment").addToBackStack(null);
                 fragmentTransaction.commit();
             }
-        });
+        });*/
     }
     boolean doubleBackToExitPressedOnce = false;
     @Override

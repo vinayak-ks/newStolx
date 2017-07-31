@@ -28,7 +28,7 @@ import com.yarolegovich.discretescrollview.DiscreteScrollView;
 
 import java.util.HashMap;
 
-public class OrderConformationActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class OrderConformationActivity extends AppCompatActivity  {
     private RecyclerView mrecyclerView;
     private DatabaseReference mdatabase,morderbase,mnotification;
     private ProgressDialog prodialog;
@@ -56,9 +56,21 @@ public class OrderConformationActivity extends AppCompatActivity implements Adap
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
-       spinner.setOnItemSelectedListener(this);
+       spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+           @Override
+           public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+               src = parent.getItemAtPosition(position).toString();
+               Log.d("spinn","banthu");
+           }
+
+           @Override
+           public void onNothingSelected(AdapterView<?> parent) {
+
+           }
+       });
         TextView textView = (TextView)findViewById(R.id.oplace);
         editText = (EditText)findViewById(R.id.orderqty);
+
 
 
         /*try{
@@ -91,8 +103,10 @@ public class OrderConformationActivity extends AppCompatActivity implements Adap
 
         Button btn = (Button)findViewById(R.id.orderconfirm);
         btn.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
+                quu = editText.getText().toString();
                 new AlertDialog.Builder(OrderConformationActivity.this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Confirmation")
                         .setMessage("Do you want to place the order of "+quu +" of"+src)
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -174,7 +188,7 @@ public class OrderConformationActivity extends AppCompatActivity implements Adap
         //scroll.setAdapter(productViewHolderFirebaseRecyclerAdapter);
     }
 
-    @Override
+   /* @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
        switch (adapterView.getId()){
            case R.id.spinner: src = (String) adapterView.getItemAtPosition(i);
@@ -188,5 +202,5 @@ public class OrderConformationActivity extends AppCompatActivity implements Adap
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
-    }
+    }*/
 }

@@ -1,5 +1,7 @@
 package vicasintechies.in.stolx;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -35,6 +37,7 @@ public class SelectionActivity extends AppCompatActivity {
     ImageView imageView;
     private DatabaseReference mnotification;
     private StorageReference storageReference;
+    private String dial;
     String seller;
     Button btn,callbtn;
     @Override
@@ -45,7 +48,7 @@ public class SelectionActivity extends AppCompatActivity {
         NativeExpressAdView adView = (NativeExpressAdView)findViewById(R.id.adView);
 
         AdRequest request = new AdRequest.Builder()
-                .addTestDevice("A6EEE47EABF89231D91A21C973A96CCC").build();
+                .addTestDevice("CEB43289F6636A1BC8ECD3D520DBB186").build();
         adView.loadAd(request);
 
         Toolbar tool = (Toolbar)findViewById(R.id.mtoolbar);
@@ -71,6 +74,12 @@ public class SelectionActivity extends AppCompatActivity {
         stime = (TextView)findViewById(R.id.dtime);
          btn = (Button)findViewById(R.id.sellbutton);
         callbtn =(Button)findViewById(R.id.scall);
+        callbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse(dial)));
+            }
+        });
         //txt.setText(com);
     }
 
@@ -88,6 +97,7 @@ public class SelectionActivity extends AppCompatActivity {
                 price.setText("₹ "+post.getPrice());
                 txt.setText(post.getPlace());
                 clg.setText(post.getCollege());
+                dial = "tel:" + post.getPhone();
 
                 Glide.with(getApplicationContext()).load(post.getImage()).into(imageView);
 

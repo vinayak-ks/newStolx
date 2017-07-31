@@ -71,7 +71,7 @@ public class MainActivity extends DrawerActivity {
         fragmentTransaction.commit();
 
 
-        fab1.setOnClickListener(new View.OnClickListener() {
+        /*fab1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //buttonClicked(view);
@@ -81,7 +81,7 @@ public class MainActivity extends DrawerActivity {
                 fragmentTransaction.add(R.id.frame,fragment,"fragment");
                 fragmentTransaction.commit();
             }
-        });
+        });*/
 
         /*final Toolbar toolbar = mViewPager.getToolbar();
         if (toolbar != null) {

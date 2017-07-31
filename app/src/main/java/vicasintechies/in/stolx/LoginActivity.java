@@ -1,6 +1,8 @@
 package vicasintechies.in.stolx;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
@@ -15,12 +17,19 @@ import java.util.Arrays;
 
 public class LoginActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN = 123;
-    private PrefManager prefManager;
+   /* private PrefManager prefManager1;*/
+    private  SharedPreferences.Editor reditor;
+    boolean rfirstTime;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        prefManager = new PrefManager(this);
+
+        SharedPreferences  sharedPreferences = getSharedPreferences("ShaPreferences", Context.MODE_PRIVATE);
+        reditor=sharedPreferences.edit();
+        rfirstTime =sharedPreferences.getBoolean("rfirst", true);
+
+        /*prefManager1 = new PrefManager(this);*/
         FirebaseAuth auth = FirebaseAuth.getInstance();
         if (auth.getCurrentUser() != null) {
             startActivity(new Intent(this, MainActivity.class));
@@ -53,15 +62,20 @@ public class LoginActivity extends AppCompatActivity {
             // Successfully signed in
             if (resultCode == ResultCodes.OK) {
                 //startActivity(MainActivity.createIntent(this, response));
-                if(prefManager.isFirstTimeLaunch()){
-                    prefManager.setFirstTimeLaunch(false);
-                    startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
-                    finish();
-                }else {
-                    startActivity(new Intent(LoginActivity.this,NavigationActivity.class));
-                }
+               if (FirebaseAuth.getInstance().getCurrentUser()!=null){
+                   if(rfirstTime){
+                       reditor.putBoolean("rfirst",false);
+                       //For commit the changes, Use either editor.commit(); or  editor.apply();.
+                       reditor.commit();
+                       startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+                       finish();
+                    /*prefManager1.setFirstTimeLaunch(false);*/
+                   }else {
+                       startActivity(new Intent(LoginActivity.this,NavigationActivity.class));
+                   }
 
-                return;
+                   return;
+               }
             } else {
                 // Sign in failed
                 if (response == null) {

@@ -14,8 +14,28 @@ public class Book {
     private String Branch;
     private String Uid;
     private String SDate;
+    private String Phone;
 
+    public Book(String name, String place, String price, String college, String branch, String uid, String SDate, String phone, String image) {
+        Name = name;
+        Place = place;
+        Price = price;
+        College = college;
+        Branch = branch;
+        Uid = uid;
+        this.SDate = SDate;
+        Phone = phone;
+        Image = image;
+    }
 
+    public String getPhone() {
+
+        return Phone;
+    }
+
+    public void setPhone(String phone) {
+        Phone = phone;
+    }
 
     public void setUid(String uid) {
         Uid = uid;

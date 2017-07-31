@@ -25,56 +25,69 @@
     <include layout="@layout/content_navigation" />
 
 
-    <com.github.clans.fab.FloatingActionMenu
-        android:id="@+id/menu_labels_right"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        fab:menu_labels_ellipsize="end"
-        fab:menu_labels_singleLine="true"
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+       <com.github.clans.fab.FloatingActionMenu
+           android:id="@+id/menu_labels_right"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:layout_alignParentBottom="true"
+           fab:menu_labels_ellipsize="end"
+           fab:menu_labels_singleLine="true"
 
-        fab:menu_labels_position="left">
-        <com.github.clans.fab.FloatingActionButton
+           fab:menu_labels_position="left">
+           <!--<com.github.clans.fab.FloatingActionButton
 
-            android:id="@+id/fabOffer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_edit"
-            fab:fab_label="Upload Offers"
-            style="@style/MenuButtonsStyle" />
-        <com.github.clans.fab.FloatingActionButton
+               android:id="@+id/fabOffer"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:src="@drawable/ic_edit"
+               fab:fab_label="Upload Offers"
+               style="@style/MenuButtonsStyle" />-->
+           <com.github.clans.fab.FloatingActionButton
 
-            android:id="@+id/fabBook"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_edit"
-            fab:fab_label="Sell Book"
-            style="@style/MenuButtonsStyle" />
+               android:id="@+id/fabBook"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:src="@drawable/ic_edit"
+               fab:fab_label="Sell Book"
+               style="@style/MenuButtonsStyle" />
 
 
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fabXerox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_edit"
-            fab:fab_label="Sell Xerox"
-            style="@style/MenuButtonsStyle" />
+           <com.github.clans.fab.FloatingActionButton
+               android:id="@+id/fabXerox"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:src="@drawable/ic_edit"
+               fab:fab_label="Sell Xerox"
+               style="@style/MenuButtonsStyle" />
 
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fabInstruments"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_edit"
-            fab:fab_label="Sell Instruments"
-            style="@style/MenuButtonsStyle" />
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fabOthers"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_edit"
-            fab:fab_label="Sell Others"
-            style="@style/MenuButtonsStyle" />
+           <com.github.clans.fab.FloatingActionButton
+               android:id="@+id/fabInstruments"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:src="@drawable/ic_edit"
+               fab:fab_label="Sell Instruments"
+               style="@style/MenuButtonsStyle" />
+           <com.github.clans.fab.FloatingActionButton
+               android:id="@+id/fabOthers"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:src="@drawable/ic_edit"
+               fab:fab_label="Sell Others"
+               style="@style/MenuButtonsStyle" />
 
-    </com.github.clans.fab.FloatingActionMenu>
+       </com.github.clans.fab.FloatingActionMenu>
+
+       <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+           android:id="@+id/adView"
+           android:layout_width="320dp"
+           android:layout_height="50dp"
+           android:layout_alignBottom="@+id/menu_labels_right"
+           ads:adSize="BANNER"
+           ads:adUnitId="ca-app-pub-6744256522448589/4806988602"/>
+
+   </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>
