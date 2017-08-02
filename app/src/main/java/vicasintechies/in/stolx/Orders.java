@@ -5,14 +5,31 @@ package vicasintechies.in.stolx;
  */
 
 public class Orders {
-    String Product_Name,from_uid,status,qty;
+    String product;
+    String from_uid;
+    String status;
+    String qty;
 
-    public String getProduct_Name() {
-        return Product_Name;
+    public String getPrice() {
+        return price;
     }
 
-    public void setProduct_Name(String product_Name) {
-        Product_Name = product_Name;
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    String price;
+    public Orders(){
+
+       // Log.d("inside",product);
+    }
+
+    public String getProduct() {
+        return product;
+    }
+
+    public void setProduct(String product_name) {
+        this.product = product_name;
     }
 
     public String getFrom_uid() {

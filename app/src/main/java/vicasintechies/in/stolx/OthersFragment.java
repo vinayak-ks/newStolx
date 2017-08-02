@@ -11,7 +11,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -164,7 +163,7 @@ public class OthersFragment extends Fragment {
                 }
             }
         };
-        Log.d("Coming","data entererd");
+
         mrecyclerView.setAdapter(firebaseRecyclerAdapter);
         /*mrecyclerView.setHasFixedSize(true);*/
         /*LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -216,7 +215,7 @@ public class OthersFragment extends Fragment {
             ImageView imageView = (ImageView) mView.findViewById(R.id.myimage);
            /* Picasso.with(ctx).load(image).into(imageView);*/
             Glide.with(ctx).load(image).into(imageView);
-            Log.d("Image","inmahgeg");
+
         }
     }
 

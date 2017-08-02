@@ -98,7 +98,7 @@ public class NotificationsFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        Log.d("Stsart", "gjjg");
+
         FirebaseRecyclerAdapter<Book,ProductViewHolder> productViewHolderFirebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Book, ProductViewHolder>(
                 Book.class,
                 R.layout.rowoffer,
@@ -136,7 +136,7 @@ public class NotificationsFragment extends Fragment {
                 }
             }
         };
-        Log.d("Coming","data entererd");
+
         mrecyclerView.setAdapter(productViewHolderFirebaseRecyclerAdapter);
 
     }
@@ -152,7 +152,7 @@ public class NotificationsFragment extends Fragment {
             ImageView imageView = (ImageView) mView.findViewById(R.id.offerimage);
            /* Picasso.with(ctx).load(image).into(imageView);*/
             Glide.with(ctx).load(image).into(imageView);
-            Log.d("Image","inmahgeg");
+
         }
 
 

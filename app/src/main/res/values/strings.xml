@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Stolx Admin</string>
+    <string name="app_name">Stolx</string>
 
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
@@ -39,6 +39,14 @@
         <item>Scientific Calculator</item>
         <item>Drawing Board Pins</item>
         <item>Drasheet Containers</item>
+    </string-array>
+    <string-array name="qtyarray">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+
     </string-array>
     <string-array name="college_array">
         <item>SIT</item>

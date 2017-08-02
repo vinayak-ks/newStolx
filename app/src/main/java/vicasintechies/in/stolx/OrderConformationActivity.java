@@ -8,6 +8,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -32,7 +34,9 @@ public class OrderConformationActivity extends AppCompatActivity  {
     private RecyclerView mrecyclerView;
     private DatabaseReference mdatabase,morderbase,mnotification;
     private ProgressDialog prodialog;
+    private  TextView textView;
     String src="abc";
+    String qtyy;
     int total;
     Integer qty;
     String adminuid;
@@ -56,49 +60,75 @@ public class OrderConformationActivity extends AppCompatActivity  {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
-       spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-           @Override
-           public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-               src = parent.getItemAtPosition(position).toString();
-               Log.d("spinn","banthu");
-           }
-
-           @Override
-           public void onNothingSelected(AdapterView<?> parent) {
-
-           }
-       });
-        TextView textView = (TextView)findViewById(R.id.oplace);
+        textView = (TextView)findViewById(R.id.oplace);
         editText = (EditText)findViewById(R.id.orderqty);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                src = parent.getItemAtPosition(position).toString();
+                editText.setText("");
+                textView.setText("");
+                Log.d("spinn","banthu");
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
 
 
+        editText.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void afterTextChanged(Editable mEdit)
+            {
+                quu = mEdit.toString();
+                if(!quu.equals("")){
+                    qty = Integer.parseInt(quu);
+                }else{
+                    qty=0;
+                }
+
+                Log.d("quu",quu);
+
+                switch (src){
+                    case "Mini Drafter":
+               if(qty<5){
+                    total = 220*qty;
+                }else{
+                    total= 200*qty;
+                }
+                        textView.setText("₹"+String.valueOf(total));
+
+                        break;
+                    case "Scientific Calculator":
+                        if(qty<5){
+                            total = 550*qty;
+                        }else{
+                            total= 530*qty;
+                        }
+
+                        textView.setText("₹"+total);
+
+                        break;
+                    case "Drawing Board Pins": total=qty*15;textView.setText("₹"+total);break;
+                    case "Drasheet Containers":total=qty*15;textView.setText("₹"+total);/*total=total*100*/;break;
+                }
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after){}
+
+            public void onTextChanged(CharSequence s, int start, int before, int count){}
+        });
         /*try{
             qty = Integer.parseInt(ss);
         }catch (NumberFormatException e){
             System.out.print(e.getMessage());
         }*/
 
-        switch (src){
-            case "Mini Drafter":textView.setText("₹200 to ₹220");
-           /*     if(qty<5){
-                    total = 220*qty;
-                }else{
-                    total= 200*qty;
-                }
-*/
 
-                break;
-            case "Scientific Calculator":textView.setText("₹530 to ₹550");
-               /* if(qty<5){
-                    total = 550*qty;
-                }else{
-                    total= 530*qty;
-                }*/
-                break;
-            case "Drawing Board Pins":textView.setText("₹15"); /*total=qty*15*/;break;
-            case "Drasheet Containers":textView.setText("₹ 100");/*total=total*100*/;break;
-        }
         scrollView = (DiscreteScrollView)findViewById(R.id.picker);
 
         Button btn = (Button)findViewById(R.id.orderconfirm);
@@ -106,7 +136,7 @@ public class OrderConformationActivity extends AppCompatActivity  {
 
             @Override
             public void onClick(View view) {
-                quu = editText.getText().toString();
+
                 new AlertDialog.Builder(OrderConformationActivity.this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Confirmation")
                         .setMessage("Do you want to place the order of "+quu +" of"+src)
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -115,10 +145,11 @@ public class OrderConformationActivity extends AppCompatActivity  {
                                 prodialog.setMessage("Confirming your Order...");
                                 prodialog.show();
                                 final  String rd= editText.getText().toString().trim();
+                                final  String pri=String.valueOf(total);
                                 DatabaseReference newpost = morderbase.push();
-                                newpost.child("Product Name").setValue(src);
+                                newpost.child("product").setValue(src);
                                 newpost.child("from_uid").setValue(FirebaseAuth.getInstance().getCurrentUser().getUid());
-
+                                newpost.child("price").setValue(pri);
                                 newpost.child("qty").setValue(rd);
                                 newpost.child("status").setValue("Requested").addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
@@ -193,14 +224,9 @@ public class OrderConformationActivity extends AppCompatActivity  {
        switch (adapterView.getId()){
            case R.id.spinner: src = (String) adapterView.getItemAtPosition(i);
                Log.d("spin",src);break;
-
        }
-
-
     }
-
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
-
     }*/
 }

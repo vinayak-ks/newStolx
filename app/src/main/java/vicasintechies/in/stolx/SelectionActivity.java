@@ -47,8 +47,7 @@ public class SelectionActivity extends AppCompatActivity {
 
         NativeExpressAdView adView = (NativeExpressAdView)findViewById(R.id.adView);
 
-        AdRequest request = new AdRequest.Builder()
-                .addTestDevice("CEB43289F6636A1BC8ECD3D520DBB186").build();
+        AdRequest request =new AdRequest.Builder().build();
         adView.loadAd(request);
 
         Toolbar tool = (Toolbar)findViewById(R.id.mtoolbar);
@@ -106,7 +105,7 @@ public class SelectionActivity extends AppCompatActivity {
 
                // branch.setText(post.getBranch());
                 stime.setText(post.getSDate());
-                Log.d("time",post.getSDate());
+
 
 /*
                 callbtn.setOnClickListener(new View.OnClickListener() {

@@ -4,16 +4,15 @@ import android.content.Context;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -109,6 +108,7 @@ public class MyOrderFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+
         FirebaseRecyclerAdapter<Orders,MyOrderHolder> firebaseRecyclerAdapterMyFert = new FirebaseRecyclerAdapter<Orders,MyOrderHolder>(
                 Orders.class,
                 R.layout.row_order,
@@ -120,8 +120,13 @@ public class MyOrderFragment extends Fragment {
 
                 final String post_key = getRef(position).getKey();
                 //viewHolder.setTitle(model.getTitle());
-                viewHolder.setName(model.getProduct_Name());
-                viewHolder.setPrice(model.getStatus());
+                //Log.d("proudct ",model.getProduct_name());
+
+                viewHolder.setName(model.getProduct());
+                viewHolder.setPrice("₹"+model.getPrice());
+                viewHolder.setQuantity(model.getQty());
+                viewHolder.setStatus(model.getStatus());
+                //viewHolder.setImage(getContext(),model.getProduct());
                 //viewHolder.setPlace(model.getPlace());
                 //viewHolder.setImage(getContext(),model.getImage());
 
@@ -137,7 +142,12 @@ public class MyOrderFragment extends Fragment {
 
         mRecycler.setAdapter(firebaseRecyclerAdapterMyFert);
     }
-
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        mRecycler.setLayoutManager(linearLayoutManager);
+    }
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -170,7 +180,14 @@ public class MyOrderFragment extends Fragment {
             Log.d("Coming1","name data entererd");
         }
 */
-
+        public  void setStatus(String s){
+            TextView textView2 = (TextView) mView.findViewById(R.id.prostatus);
+            textView2.setText(s);
+        }
+        public  void setQuantity(String s){
+            TextView textView2 = (TextView) mView.findViewById(R.id.proqty);
+            textView2.setText(s);
+        }
 
         public void setPrice(String price) {
             TextView textView2 = (TextView) mView.findViewById(R.id.sporice);
@@ -194,10 +211,14 @@ public class MyOrderFragment extends Fragment {
 
 
         public void setImage(Context ctx, String image) {
-            ImageView imageView = (ImageView) mView.findViewById(R.id.myoimage);
+            //ImageView imageView = (ImageView) mView.findViewById(R.id.myoimage);
            /* Picasso.with(ctx).load(image).into(imageView);*/
-            Glide.with(ctx).load(image).into(imageView);
-            Log.d("Image","inmahgeg");
+           // Glide.with(ctx).load(image).into(imageView);
+            /*switch (image){
+                case "Scientific Calculator": imageView.setImageResource(R.drawable.mybook);break;
+                default:imageView.setImageResource(R.drawable.myinstru);break;
+            }*/
+
         }
     }
 

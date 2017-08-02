@@ -13,10 +13,10 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionMenu;
@@ -69,10 +69,16 @@ com.github.clans.fab.FloatingActionButton fab1;
         toggle.syncState();
         mInterstitialAd = new InterstitialAd(this);
         mInterstitialAd.setAdUnitId("ca-app-pub-6744256522448589/8441382795");
-        mInterstitialAd.loadAd(new AdRequest.Builder().addTestDevice("CEB43289F6636A1BC8ECD3D520DBB186").build());
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
         menu_labels = (FloatingActionMenu) findViewById(R.id.menu_labels_right);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View header =  navigationView.getHeaderView(0);
+        TextView vt = (TextView)header.findViewById(R.id.usernamenav);
+        TextView bt = (TextView)header.findViewById(R.id.navphone);
+        vt.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+        bt.setText(FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber());
+
         Fragment fragment = new BlankFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.frame,fragment,"fragment");
@@ -194,7 +200,7 @@ com.github.clans.fab.FloatingActionButton fab1;
                         public void onClick(DialogInterface dialog, int which) {
                             //finish();
                             if (mInterstitialAd.isLoaded()) {
-                                Log.d("Inters","inrt");
+
                                 mInterstitialAd.show();
                             }
                             doubleBackToExitPressedOnce = false;

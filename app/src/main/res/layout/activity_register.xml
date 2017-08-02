@@ -5,13 +5,20 @@
     android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/images"
+    android:background="@drawable/register"
 
     tools:context="vicasintechies.in.stolx.RegisterActivity">
+
+        <!-- Here you put the rest of your current view-->
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+        <ScrollView
+
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -21,7 +28,7 @@
                 android:layout_width="171dp"
                 android:layout_height="154dp"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/stolx"/>
+                android:src="@drawable/stolx" />
 
 
             <android.support.design.widget.TextInputLayout
@@ -36,42 +43,46 @@
                 android:maxLines="1"
                 android:textColor="@android:color/darker_gray"
                 android:textColorHint="@android:color/white"
-                android:textSize="18sp" >
+                android:textSize="18sp">
+
                 <EditText
+                    android:textColor="@color/white"
                     android:id="@+id/registerusername"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
-                </android.support.design.widget.TextInputLayout>
+            </android.support.design.widget.TextInputLayout>
 
 
-                <!--
+            <!--
                 app:mtf_animationDuration="1000"
                 app:mtf_cardColor="@color/cardview_dark_background"
                 app:mtf_labelColor="@android:color/holo_red_dark"
                 app:mtf_openKeyboardOnFocus="true"
                 -->
 
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:layout_marginTop="20dp"
-                    android:hint="Email"
-                    android:inputType="textEmailAddress"
-                    android:maxLines="1"
-                    android:textColor="@android:color/darker_gray"
-                    android:textColorHint="@android:color/white"
-                    android:textSize="18sp" >
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/registerphno"/>
-                 </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginTop="20dp"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:textColor="@android:color/darker_gray"
+                android:textColorHint="@android:color/white"
+                android:textSize="18sp">
+
+                <EditText
+                    android:textColor="@color/white"
+                    android:id="@+id/registerphno"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </android.support.design.widget.TextInputLayout>
 
 
-                <!--
+            <!--
                 app:mtf_animationDuration="1000"
                 app:mtf_cardColor="@color/cardview_dark_background"
                 app:mtf_labelColor="@android:color/holo_red_dark"
@@ -95,11 +106,15 @@
                     android:textColor="@android:color/white"
                     android:textColorLink="@color/white"
                     android:textSize="16sp" />
+
                 <Spinner
+                    android:background="@color/white"
+                    android:textColor="@color/white"
                     android:id="@+id/registerclgname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
@@ -116,21 +131,24 @@
                     android:text="Branch :    "
                     android:textColor="@android:color/white"
                     android:textSize="16sp" />
+
                 <Spinner
+                    android:background="@color/white"
+
                     android:id="@+id/registercity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
 
-                <!--
+            <!--
                 app:mtf_animationDuration="1000"
                 app:mtf_cardColor="@color/cardview_dark_background"
                 app:mtf_labelColor="@android:color/holo_red_dark"
                 app:mtf_openKeyboardOnFocus="true"
                 -->
 
-           <!--     <EditText
+            <!--     <EditText
                     android:id="@+id/registercity"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
@@ -146,7 +164,7 @@
 -->
 
 
-                <!--
+            <!--
                 app:mtf_animationDuration="1000"
                 app:mtf_cardColor="@color/cardview_dark_background"
                 app:mtf_labelColor="@android:color/holo_red_dark"
@@ -168,12 +186,14 @@
                     android:text="City :          "
                     android:textColor="@android:color/white"
                     android:textSize="16sp" />
+
                 <Spinner
+                    android:background="@color/white"
                     android:id="@+id/branch"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>
-                <!--<EditText
+            <!--<EditText
                     android:id="@+id/branch"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
@@ -194,32 +214,33 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:layout_marginRight="30dp"
+                android:background="@color/colorAccent"
                 android:elevation="10dp"
                 android:paddingTop="10dp"
-                android:text="Register" />
+                android:text="Register"
+                android:textColor="#fff" />
 
 
         </LinearLayout>
+    </ScrollView>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="bottom"
-            android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
-            >
+            android:layout_centerHorizontal="true"
+            android:gravity="bottom"
+            android:orientation="horizontal">
 
-            <com.google.android.gms.ads.AdView
-                xmlns:ads="http://schemas.android.com/apk/res-auto"
+            <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/adView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 ads:adSize="SMART_BANNER"
-                ads:adUnitId="ca-app-pub-6744256522448589/4806988602">
-            </com.google.android.gms.ads.AdView>
+                ads:adUnitId="ca-app-pub-6744256522448589/4806988602"></com.google.android.gms.ads.AdView>
 
         </LinearLayout>
 
     </RelativeLayout>
+
 
 </android.support.design.widget.CoordinatorLayout>

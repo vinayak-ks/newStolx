@@ -251,6 +251,8 @@
                         android:background="@android:color/darker_gray"/>
 
                     <Button
+                        android:textColor="@color/white"
+                        android:background="@color/colorPrimaryDark"
                         android:id="@+id/scall"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -260,10 +262,12 @@
                         android:text="Call" />
 
                     <Button
+                        android:textColor="@color/white"
+                        android:background="@color/colorPrimaryDark"
                         android:id="@+id/sellbutton"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Chat"
+                        android:text="Notify The Buyer"
                         android:layout_marginBottom="5dp"
                         android:layout_marginStart="7dp"
                         android:layout_marginTop="2dp"/>

@@ -200,7 +200,7 @@ public class AddFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             clg = parent.getItemAtPosition(position).toString();
-                Log.d("ola","came");
+
             }
 
             @Override
@@ -303,7 +303,7 @@ public class AddFragment extends Fragment {
                     newpost.child("SDate").setValue(stringdate);
                     newpost.child("Phone").setValue(phoneno);
                     newpost.child("Uid").setValue(currentFirebaseUser.getUid());
-                    Log.d("Book","bookdata");
+
                     /*newpost.child("Uid").setValue(FirebaseAuth.getCurrentUser)*/
                     prodialog.dismiss();
 
